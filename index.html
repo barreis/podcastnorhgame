@@ -1,0 +1,1420 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#6d28d9">
+<title>Podcast em Pauta | Missão RH</title>
+
+<style>
+:root {
+  --bg: #10091f;
+  --panel: #1d1233;
+  --panel2: #281845;
+  --purple: #8b5cf6;
+  --pink: #e879f9;
+  --lavender: #ddd6fe;
+  --text: #f8f5ff;
+  --muted: #c4b5fd;
+  --green: #86efac;
+  --yellow: #fcd34d;
+  --red: #fda4af;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: radial-gradient(ellipse at top, #35205a 0, #160d27 46%, #0c0717 100%);
+  color: var(--text);
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+button, input, select, textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: 0;
+  border-radius: 12px;
+  padding: 12px 16px;
+  font-weight: 800;
+  transition: .18s;
+}
+
+button:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.08);
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid var(--pink);
+  outline-offset: 2px;
+}
+
+button:disabled {
+  opacity: .45;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.primary {
+  background: linear-gradient(120deg, var(--purple), #a855f7);
+  color: white;
+  box-shadow: 0 8px 22px #8b5cf633;
+}
+
+.secondary {
+  background: #39245b;
+  color: #eee7ff;
+  border: 1px solid #65449a;
+}
+
+.quiet {
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid #62468b;
+}
+
+.wrap {
+  max-width: 1050px;
+  margin: auto;
+  padding: 20px;
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.brand {
+  font-weight: 950;
+  letter-spacing: .08em;
+  font-size: .9rem;
+  color: #e9d5ff;
+}
+
+.brand span {
+  color: var(--pink);
+}
+
+.pill {
+  border: 1px solid #644c8c;
+  background: #24163b;
+  border-radius: 999px;
+  padding: 8px 12px;
+  color: var(--lavender);
+  font-size: .85rem;
+}
+
+.hero,
+.panel {
+  background: linear-gradient(145deg, #24163c, #1a102c);
+  border: 1px solid #493267;
+  border-radius: 24px;
+  box-shadow: 0 18px 50px #0003;
+}
+
+.hero {
+  padding: clamp(22px, 5vw, 44px);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero:after {
+  content: "🎙️";
+  position: absolute;
+  right: 4%;
+  top: 12%;
+  font-size: clamp(4rem, 13vw, 9rem);
+  opacity: .12;
+  transform: rotate(12deg);
+  pointer-events: none;
+}
+
+.eyebrow {
+  color: var(--pink);
+  font-size: .78rem;
+  font-weight: 900;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+}
+
+.hero h1 {
+  font-size: clamp(2.2rem, 6vw, 4.2rem);
+  line-height: 1.02;
+  margin: 10px 0 16px;
+  max-width: 700px;
+}
+
+.hero h1 em {
+  font-style: normal;
+  color: #c4b5fd;
+}
+
+.hero p {
+  line-height: 1.65;
+  color: #ddd2f5;
+  max-width: 690px;
+}
+
+.quote {
+  border-left: 3px solid var(--pink);
+  padding: 12px 16px;
+  margin: 22px 0;
+  background: #ffffff08;
+  border-radius: 0 12px 12px 0;
+  max-width: 720px;
+  line-height: 1.65;
+}
+
+.quote strong {
+  display: block;
+  margin-top: 9px;
+  color: #e9d5ff;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 22px;
+}
+
+.rules {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.rule {
+  padding: 16px;
+  border: 1px solid #44305f;
+  border-radius: 16px;
+  background: #1b102d;
+}
+
+.rule b {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.rule span {
+  font-size: .9rem;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.panel {
+  padding: clamp(18px, 4vw, 30px);
+  margin-top: 16px;
+}
+
+.progress-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.progress {
+  height: 9px;
+  background: #120a20;
+  border-radius: 99px;
+  overflow: hidden;
+  margin: 14px 0 22px;
+}
+
+.progress div {
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, var(--purple), var(--pink));
+  transition: width .25s;
+}
+
+.stage-title {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.stage-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 15px;
+  display: grid;
+  place-items: center;
+  background: #43266b;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.stage-title h2 {
+  margin: 0;
+  font-size: clamp(1.25rem, 3vw, 1.8rem);
+}
+
+.stage-title p {
+  margin: 5px 0 0;
+  color: var(--muted);
+}
+
+.challenge {
+  background: #160d27;
+  border: 1px solid #4a3269;
+  padding: 20px;
+  border-radius: 18px;
+  margin-top: 20px;
+}
+
+.challenge h3 {
+  margin: 0 0 8px;
+  font-size: 1.15rem;
+}
+
+.challenge .prompt {
+  color: #ded2f4;
+  line-height: 1.55;
+}
+
+.options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.option {
+  background: #28183f;
+  color: #f4edff;
+  text-align: left;
+  border: 1px solid #543976;
+  padding: 14px;
+  border-radius: 13px;
+  line-height: 1.4;
+}
+
+.option.selected {
+  border: 2px solid var(--pink);
+  background: #45235b;
+}
+
+.option.correct {
+  border-color: var(--green);
+}
+
+.option.wrong {
+  border-color: var(--red);
+}
+
+.feedback {
+  margin-top: 14px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  line-height: 1.5;
+}
+
+.feedback.good {
+  background: #123a2c;
+  color: #bbf7d0;
+}
+
+.feedback.bad {
+  background: #4b1c32;
+  color: #ffe4e6;
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 18px;
+}
+
+.small {
+  font-size: .85rem;
+  color: var(--muted);
+}
+
+.timer {
+  font-variant-numeric: tabular-nums;
+  font-weight: 900;
+  font-size: 1.05rem;
+}
+
+.timer.low {
+  color: var(--yellow);
+}
+
+.hidden {
+  display: none !important;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin: 12px 0;
+}
+
+.field label {
+  font-weight: 800;
+  color: #e9ddff;
+}
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  background: #120a20;
+  color: white;
+  border: 1px solid #634687;
+  border-radius: 11px;
+  padding: 12px;
+}
+
+.field textarea {
+  min-height: 95px;
+  resize: vertical;
+}
+
+.builder-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.script-output {
+  white-space: pre-wrap;
+  line-height: 1.65;
+  background: #11091d;
+  border: 1px solid #563c75;
+  border-radius: 14px;
+  padding: 18px;
+  color: #f4eaff;
+  min-height: 160px;
+}
+
+.checklist {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.check {
+  display: flex;
+  gap: 9px;
+  align-items: flex-start;
+  background: #201333;
+  border: 1px solid #493267;
+  border-radius: 10px;
+  padding: 10px;
+  color: #e6dcf8;
+}
+
+.check input {
+  accent-color: #a855f7;
+  margin-top: 4px;
+}
+
+.complete {
+  font-size: 1.1rem;
+  color: var(--green);
+  font-weight: 800;
+}
+
+.footer {
+  text-align: center;
+  color: #9d8abf;
+  font-size: .8rem;
+  padding: 24px 8px;
+}
+
+@media(max-width:650px) {
+  .rules,
+  .options,
+  .builder-grid,
+  .checklist {
+    grid-template-columns: 1fr;
+  }
+
+  .top {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .hero:after {
+    right: 2%;
+    top: 4%;
+    opacity: .08;
+  }
+
+  .wrap {
+    padding: 12px;
+  }
+
+  .controls button {
+    flex: 1;
+  }
+}
+
+@media print {
+  body {
+    background: white;
+    color: black;
+  }
+
+  .top,
+  #intro,
+  #game,
+  .footer,
+  .hero-actions,
+  #restartBtn,
+  .checklist {
+    display: none !important;
+  }
+
+  #builder,
+  .panel {
+    display: block !important;
+    background: white;
+    color: black;
+    border: none;
+    box-shadow: none;
+  }
+
+  .builder-grid {
+    display: block;
+  }
+
+  .builder-grid > div:first-child {
+    display: none;
+  }
+
+  .field label,
+  .small,
+  .eyebrow,
+  .complete {
+    color: black;
+  }
+
+  .script-output,
+  .field textarea {
+    background: white;
+    color: black;
+    border: 1px solid #aaa;
+  }
+}
+</style>
+</head>
+
+<body>
+<div class="wrap">
+
+<header class="top">
+  <div class="brand">PODCAST <span>EM PAUTA</span> · MISSÃO RH</div>
+  <div class="pill">⏱️ Desafio de 30 minutos</div>
+</header>
+
+<main>
+
+<section id="intro" class="hero">
+  <div class="eyebrow">Comunicação Corporativa · Recursos Humanos</div>
+
+  <h1>Do briefing ao <em>microfone.</em></h1>
+
+  <p>
+    Em equipe, vocês vão transformar uma ideia em um roteiro de podcast corporativo pronto para apresentar.
+    Tomem decisões, resolvam enigmas, conquistem pontos e construam um script claro, ético e interessante.
+  </p>
+
+  <div class="quote">
+    “Toda boa comunicação começa quando alguém decide ouvir, organizar as ideias e dar voz ao que realmente importa.
+    Vocês têm 30 minutos para transformar uma pauta em uma conversa que conecta pessoas.
+    Confiem na equipe, pensem com estratégia e façam essa voz valer a pena!”
+    <strong>— Professora Bárbara, Comunicação Corporativa</strong>
+  </div>
+
+  <div class="rules">
+    <div class="rule">
+      <b>🎯 Missão</b>
+      <span>Concluir 20 desafios e 5 enigmas em 5 fases.</span>
+    </div>
+    <div class="rule">
+      <b>🤝 Trabalho em equipe</b>
+      <span>Leiam, debatam e escolham uma resposta antes de confirmar.</span>
+    </div>
+    <div class="rule">
+      <b>🎙️ Entrega final</b>
+      <span>Montar e copiar um script completo de podcast corporativo.</span>
+    </div>
+  </div>
+
+  <div class="hero-actions">
+    <button class="primary" id="startBtn">Começar missão →</button>
+    <button class="quiet" id="howBtn">Como funciona?</button>
+  </div>
+
+  <p id="howText" class="small hidden">
+    São 5 fases. Cada fase tem 4 desafios e 1 enigma (25 etapas no total).
+    Cada resposta correta soma pontos; respostas incorretas mostram uma explicação para a equipe aprender.
+    O cronômetro começa ao iniciar e o roteiro pode ser editado ao final.
+  </p>
+</section>
+
+<section id="game" class="panel hidden">
+  <div class="progress-row">
+    <div>
+      <div class="eyebrow" id="phaseLabel">FASE 1 DE 5</div>
+      <div class="small" id="stepLabel">Etapa 1 de 25</div>
+    </div>
+    <div class="pill timer" id="timer">30:00</div>
+  </div>
+
+  <div class="progress">
+    <div id="progressFill"></div>
+  </div>
+
+  <div class="stage-title">
+    <div class="stage-icon" id="phaseIcon">🧭</div>
+    <div>
+      <h2 id="phaseName">Planejamento da pauta</h2>
+      <p id="phaseDesc">Definam o objetivo e o público.</p>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="eyebrow" id="kindLabel">DESAFIO</div>
+    <h3 id="questionTitle"></h3>
+    <p class="prompt" id="questionPrompt"></p>
+
+    <div class="options" id="options"></div>
+
+    <div id="feedback" class="hidden" aria-live="polite"></div>
+
+    <div class="controls">
+      <button class="quiet" id="hintBtn">💡 Pedir pista</button>
+      <button class="primary" id="confirmBtn" disabled>Confirmar resposta</button>
+      <button class="primary hidden" id="nextBtn">Próxima etapa →</button>
+    </div>
+
+    <p class="small" id="hintText"></p>
+  </div>
+
+  <div class="progress-row" style="margin-top:16px">
+    <span class="small">⭐ Pontuação: <strong id="score">0</strong></span>
+    <span class="small">Respostas corretas: <strong id="correctCount">0</strong>/25</span>
+  </div>
+</section>
+
+<section id="builder" class="panel hidden">
+  <div class="eyebrow">Missão concluída · Oficina de roteiro</div>
+  <h2>Agora, deem forma à voz da empresa. 🎙️</h2>
+  <p class="small">
+    Preencham os campos em equipe. O roteiro é montado automaticamente e pode ser ajustado antes da entrega.
+  </p>
+
+  <div class="builder-grid">
+
+    <div>
+      <div class="field">
+        <label for="podTitle">Nome do podcast</label>
+        <input id="podTitle" value="Conexão RH" maxlength="80">
+      </div>
+
+      <div class="field">
+        <label for="company">Empresa / organização fictícia</label>
+        <input id="company" value="Conecta Pessoas" maxlength="100">
+      </div>
+
+      <div class="field">
+        <label for="theme">Tema do episódio</label>
+        <select id="theme">
+          <option>Saúde mental e bem-estar no trabalho</option>
+          <option>Integração de novos colaboradores</option>
+          <option>Diversidade, equidade e inclusão</option>
+          <option>Comunicação interna e escuta ativa</option>
+          <option>Desenvolvimento de carreira</option>
+          <option>Segurança e prevenção no trabalho</option>
+          <option>Reconhecimento e clima organizacional</option>
+          <option>Outro tema definido pela equipe</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="audience">Público-alvo</label>
+        <input id="audience" value="Colaboradores de todas as áreas" maxlength="120">
+      </div>
+
+      <div class="field">
+        <label for="goal">Objetivo do episódio</label>
+        <textarea id="goal">Informar, acolher e incentivar atitudes práticas no ambiente de trabalho.</textarea>
+      </div>
+
+      <div class="field">
+        <label for="host">Apresentador(a) / equipe</label>
+        <input id="host" placeholder="Nome(s) dos apresentadores">
+      </div>
+
+      <div class="field">
+        <label for="guest">Convidado(a) e função</label>
+        <input id="guest" placeholder="Ex.: analista de RH, especialista ou colaborador">
+      </div>
+
+      <div class="field">
+        <label for="questions">Três perguntas principais ao convidado</label>
+        <textarea id="questions">1. Por que esse tema é importante para nossa equipe?
+2. Que atitude prática podemos adotar no dia a dia?
+3. Onde buscar apoio ou mais informações?</textarea>
+      </div>
+
+      <div class="field">
+        <label for="action">Chamada para ação (próximo passo)</label>
+        <input id="action" value="Compartilhe uma ideia com sua equipe e procure os canais internos de apoio." maxlength="220">
+      </div>
+
+      <div class="field">
+        <label for="duration">Duração estimada</label>
+        <select id="duration">
+          <option>3 a 5 minutos</option>
+          <option>5 a 8 minutos</option>
+          <option>8 a 12 minutos</option>
+        </select>
+      </div>
+    </div>
+
+    <div>
+      <div class="field">
+        <label>Checklist de qualidade</label>
+
+        <div class="checklist">
+          <label class="check"><input type="checkbox"> Objetivo claro</label>
+          <label class="check"><input type="checkbox"> Linguagem acessível</label>
+          <label class="check"><input type="checkbox"> Respeito à diversidade</label>
+          <label class="check"><input type="checkbox"> Dados checados</label>
+          <label class="check"><input type="checkbox"> Sem expor informações pessoais</label>
+          <label class="check"><input type="checkbox"> Abertura e encerramento</label>
+          <label class="check"><input type="checkbox"> Perguntas abertas</label>
+          <label class="check"><input type="checkbox"> Chamada para ação</label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="extra">Anotações / vinhetas / avisos</label>
+        <textarea id="extra" placeholder="Ex.: vinheta curta, aviso de canal interno, créditos..."></textarea>
+      </div>
+
+      <div class="field">
+        <label for="script">Roteiro gerado (edite se precisar)</label>
+        <textarea id="script" class="script-output" style="min-height:430px"></textarea>
+      </div>
+
+      <div class="hero-actions">
+        <button class="primary" id="generateBtn">Atualizar roteiro</button>
+        <button class="secondary" id="copyBtn">Copiar roteiro</button>
+        <button class="secondary" id="downloadBtn">Baixar .txt</button>
+        <button class="quiet" id="printBtn">Imprimir / salvar PDF</button>
+      </div>
+
+      <p id="copyStatus" class="small" aria-live="polite"></p>
+    </div>
+  </div>
+
+  <div class="panel" style="background:#171027">
+    <h3>🎉 Fechamento da missão</h3>
+    <p id="resultSummary"></p>
+    <p class="complete">Assinatura: Professora Bárbara · Comunicação Corporativa</p>
+    <button class="secondary" id="restartBtn">Jogar novamente</button>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  Aprender fazendo · Comunicação Corporativa · Recursos Humanos
+</footer>
+
+</div>
+
+<script>
+"use strict";
+
+const phases = [
+  {
+    name: "Planejamento da pauta",
+    icon: "🧭",
+    desc: "Definam propósito, público e relevância.",
+    items: [
+      {
+        q: "Qual é o primeiro passo antes de gravar um podcast corporativo?",
+        p: "A equipe recebeu apenas a ideia: “vamos falar sobre comunicação”. O que precisa fazer primeiro?",
+        o: [
+          "Escolher uma música de abertura",
+          "Definir objetivo, público e mensagem central",
+          "Gravar uma conversa espontânea sem pauta",
+          "Criar um slogan engraçado"
+        ],
+        a: 1,
+        e: "O briefing orienta todas as decisões: para quem falamos, por quê e o que queremos comunicar.",
+        h: "Pensem no mapa antes de começar a viagem."
+      },
+      {
+        q: "Qual objetivo está mais bem formulado?",
+        p: "A organização quer lançar um episódio sobre integração de novos colaboradores.",
+        o: [
+          "Fazer um podcast legal",
+          "Falar bastante sobre a empresa",
+          "Ajudar novos colaboradores a entender os canais de apoio e os primeiros passos",
+          "Conseguir muitas curtidas"
+        ],
+        a: 2,
+        e: "Um objetivo claro descreve o resultado esperado para o público.",
+        h: "Prefiram um resultado específico que possa orientar o conteúdo."
+      },
+      {
+        q: "Como identificar o público-alvo?",
+        p: "O episódio será sobre mudanças no sistema de ponto. Quem precisa ser priorizado?",
+        o: [
+          "Somente a diretoria, sempre",
+          "As pessoas impactadas pela mudança, considerando suas necessidades de informação",
+          "Qualquer pessoa da internet, sem adaptação",
+          "Apenas quem já conhece o sistema"
+        ],
+        a: 1,
+        e: "Público é definido por relevância, contexto e necessidades — não por suposição.",
+        h: "Quem precisa compreender ou agir após ouvir o episódio?"
+      },
+      {
+        q: "ENIGMA 1/5 — A mensagem escondida",
+        p: "PÚBLICO + OBJETIVO + MENSAGEM = ? Dica: é o documento breve que organiza o podcast antes da produção.",
+        o: ["Briefing", "Vinheta", "Ata", "Organograma"],
+        a: 0,
+        e: "Resposta: briefing. Ele reúne objetivo, público, mensagem e orienta o roteiro.",
+        h: "É um resumo de planejamento usado antes de produzir."
+      }
+    ]
+  },
+  {
+    name: "Arquitetura do episódio",
+    icon: "🧱",
+    desc: "Organizem a sequência para manter a escuta.",
+    items: [
+      {
+        q: "Qual sequência deixa o episódio mais compreensível?",
+        p: "Escolham uma estrutura que ajude a audiência a acompanhar a conversa.",
+        o: [
+          "Despedida, tema, apresentação, perguntas",
+          "Abertura, apresentação do tema, conversa principal, síntese e encerramento",
+          "Perguntas aleatórias, anúncio, abertura",
+          "Vinheta longa, créditos e só então o tema"
+        ],
+        a: 1,
+        e: "Uma estrutura clara situa o ouvinte, desenvolve o assunto e conclui com intenção.",
+        h: "A audiência precisa saber onde está, acompanhar e entender o fechamento."
+      },
+      {
+        q: "O que deve aparecer na abertura?",
+        p: "O episódio começa sem contextualização. Qual elemento é mais importante acrescentar?",
+        o: [
+          "Uma explicação breve do tema e por que importa",
+          "A biografia completa de cada participante",
+          "Uma lista de regras internas sem relação com o tema",
+          "Uma piada que constranja um colega"
+        ],
+        a: 0,
+        e: "A abertura deve acolher, apresentar o tema e mostrar relevância.",
+        h: "Nos primeiros segundos, respondam: o que vamos ouvir e por quê?"
+      },
+      {
+        q: "Qual pergunta favorece uma conversa rica?",
+        p: "O tema é reconhecimento no trabalho. O apresentador quer ouvir experiências e sugestões.",
+        o: [
+          "Você gosta de reconhecimento? Sim ou não?",
+          "Reconhecimento é bom, certo?",
+          "Que atitudes de reconhecimento fazem diferença no cotidiano da equipe?",
+          "Você concorda comigo?"
+        ],
+        a: 2,
+        e: "Perguntas abertas estimulam exemplos, reflexão e respostas mais completas.",
+        h: "Busquem uma pergunta que comece com “como”, “o que” ou “de que maneira”."
+      },
+      {
+        q: "ENIGMA 2/5 — A ordem secreta",
+        p: "Organizem as peças: 1) encerramento, 2) abertura, 3) desenvolvimento, 4) síntese. Qual é a ordem correta?",
+        o: [
+          "1–2–3–4",
+          "2–3–4–1",
+          "3–2–1–4",
+          "4–1–2–3"
+        ],
+        a: 1,
+        e: "A ordem é abertura → desenvolvimento → síntese → encerramento (2–3–4–1).",
+        h: "A despedida vem por último; a síntese acontece antes dela."
+      }
+    ]
+  },
+  {
+    name: "Entrevista e linguagem",
+    icon: "🎤",
+    desc: "Criem uma conversa profissional, humana e objetiva.",
+    items: [
+      {
+        q: "Como apresentar o convidado?",
+        p: "A convidada é analista de RH e atua com desenvolvimento de pessoas. Qual apresentação funciona melhor?",
+        o: [
+          "“Está aqui uma pessoa que sabe tudo.”",
+          "“Hoje recebemos Ana, analista de RH, para conversar sobre desenvolvimento de pessoas e compartilhar práticas.”",
+          "“Não sabemos muito sobre nossa convidada, mas vamos descobrir.”",
+          "Ler todo o currículo dela por cinco minutos"
+        ],
+        a: 1,
+        e: "A apresentação deve ser breve, contextualizar a experiência e conectar ao tema.",
+        h: "Nome, função relevante e motivo da participação são suficientes."
+      },
+      {
+        q: "Qual linguagem combina com um podcast interno?",
+        p: "O público reúne diferentes áreas e níveis de familiaridade com o tema.",
+        o: [
+          "Jargões técnicos sem explicação",
+          "Frases longas e linguagem excessivamente formal",
+          "Linguagem acessível, respeitosa e adequada ao público",
+          "Gírias e ironias que possam excluir pessoas"
+        ],
+        a: 2,
+        e: "Clareza e respeito aumentam a compreensão e a inclusão.",
+        h: "A melhor linguagem é compreensível sem ser infantilizada."
+      },
+      {
+        q: "Como agir se o convidado não souber responder?",
+        p: "Surge uma pergunta sobre uma política que precisa ser confirmada.",
+        o: [
+          "Inventar uma resposta para não perder ritmo",
+          "Desviar e fingir que a pergunta não existiu",
+          "Reconhecer a dúvida e combinar de confirmar a informação em fonte oficial",
+          "Culpar o convidado"
+        ],
+        a: 2,
+        e: "Transparência protege a credibilidade: não inventem dados; confirmem e retornem.",
+        h: "Credibilidade é mais importante do que aparentar saber tudo."
+      },
+      {
+        q: "ENIGMA 3/5 — Código da escuta",
+        p: "Completem a regra: ouvir sem interromper, demonstrar atenção e confirmar entendimento é praticar a escuta ____.",
+        o: ["Competitiva", "Ativa", "Passiva", "Seletiva"],
+        a: 1,
+        e: "Escuta ativa envolve atenção, validação e checagem do entendimento.",
+        h: "É uma habilidade essencial para comunicação e relações de trabalho."
+      }
+    ]
+  },
+  {
+    name: "Ética e comunicação interna",
+    icon: "🛡️",
+    desc: "Protejam pessoas, informações e credibilidade.",
+    items: [
+      {
+        q: "Uma pessoa relata um conflito identificável no setor. O que fazer?",
+        p: "O relato contém nomes e detalhes sensíveis que não são necessários para o episódio.",
+        o: [
+          "Publicar tudo para parecer autêntico",
+          "Retirar ou anonimizar detalhes e obter autorização adequada antes de usar o relato",
+          "Usar o áudio sem avisar",
+          "Transformar o relato em fofoca"
+        ],
+        a: 1,
+        e: "Privacidade, consentimento e minimização de dados são essenciais. Não exponham pessoas.",
+        h: "Autenticidade não exige divulgar informações pessoais."
+      },
+      {
+        q: "Como apresentar uma informação estatística?",
+        p: "A equipe quer dizer que “todo mundo” está estressado, mas não tem dados.",
+        o: [
+          "Afirmar mesmo assim, porque parece verdade",
+          "Inventar uma porcentagem plausível",
+          "Evitar generalizações e só usar dados verificáveis com contexto e fonte",
+          "Citar “pesquisas” sem identificar nenhuma"
+        ],
+        a: 2,
+        e: "Dados devem ser verificáveis, contextualizados e apresentados sem exageros.",
+        h: "Não transformem uma impressão em fato."
+      },
+      {
+        q: "Qual é a melhor atitude para promover inclusão?",
+        p: "A equipe vai falar de diversidade e quer evitar que o conteúdo afaste parte do público.",
+        o: [
+          "Fazer piadas sobre grupos para quebrar o gelo",
+          "Usar linguagem respeitosa, exemplos diversos e evitar estereótipos",
+          "Convidar uma pessoa para representar todas as experiências",
+          "Ignorar acessibilidade"
+        ],
+        a: 1,
+        e: "Inclusão requer respeito, pluralidade e atenção a barreiras de participação.",
+        h: "Evitem estereótipos e não tratem uma pessoa como representante de um grupo inteiro."
+      },
+      {
+        q: "ENIGMA 4/5 — O que não pode vazar?",
+        p: "A equipe recebe uma planilha com nomes, avaliações individuais e informações pessoais. Qual é a palavra-chave?",
+        o: ["Entretenimento", "Confidencialidade", "Velocidade", "Improviso"],
+        a: 1,
+        e: "Confidencialidade: informações pessoais e internas devem ser protegidas.",
+        h: "É o dever de proteger informações que não devem ser divulgadas."
+      }
+    ]
+  },
+  {
+    name: "Produção e chamada para ação",
+    icon: "🚀",
+    desc: "Finalizem com ritmo, clareza e próximo passo.",
+    items: [
+      {
+        q: "Qual vinheta de abertura é mais adequada?",
+        p: "O podcast interno precisa soar profissional e ser rápido.",
+        o: [
+          "Uma música alta de 45 segundos antes de qualquer fala",
+          "Uma vinheta curta, com volume confortável, seguida da identificação do podcast",
+          "Efeitos sonoros constantes sobre as falas",
+          "Uma gravação com áudio distorcido"
+        ],
+        a: 1,
+        e: "A vinheta deve identificar e criar clima sem competir com a mensagem.",
+        h: "Curta, clara e com volume que não atrapalhe a fala."
+      },
+      {
+        q: "O que é uma chamada para ação (CTA)?",
+        p: "O episódio termina sobre comunicação entre equipes. Como encerrar de modo útil?",
+        o: [
+          "“É isso, tchau.”",
+          "“Compartilhe uma prática de comunicação com sua equipe e consulte os canais internos.”",
+          "Repetir o título várias vezes",
+          "Pedir que as pessoas façam algo sem dizer o quê"
+        ],
+        a: 1,
+        e: "Uma CTA propõe um próximo passo claro e relacionado ao objetivo.",
+        h: "A pessoa precisa saber exatamente qual ação pode tomar."
+      },
+      {
+        q: "Como revisar o áudio antes de publicar?",
+        p: "A gravação está pronta e será compartilhada na intranet.",
+        o: [
+          "Publicar sem ouvir para ganhar tempo",
+          "Ouvir, checar clareza e volume, nomes, dados, consentimentos e duração",
+          "Editar só a música",
+          "Pedir apenas a opinião de quem apresentou"
+        ],
+        a: 1,
+        e: "A revisão técnica e editorial reduz erros e protege a credibilidade.",
+        h: "Façam uma checagem de conteúdo, áudio e permissões."
+      },
+      {
+        q: "ENIGMA 5/5 — A última senha",
+        p: "Decifrem a fórmula do episódio de sucesso: mensagem clara + respeito + próximo passo = ?",
+        o: [
+          "Ruído",
+          "Comunicação eficaz",
+          "Improviso total",
+          "Monólogo"
+        ],
+        a: 1,
+        e: "Comunicação eficaz combina clareza, respeito ao público e intenção prática.",
+        h: "É o resultado de uma mensagem compreendida e útil."
+      }
+    ]
+  }
+];
+
+const questions = phases.flatMap((phase, phaseIndex) =>
+  phase.items.map((item, localIndex) => ({
+    ...item,
+    phase: phaseIndex,
+    local: localIndex
+  }))
+);
+
+let index = 0;
+let score = 0;
+let correct = 0;
+let selected = null;
+let answered = false;
+let remaining = 1800;
+let timerId = null;
+let hintsUsed = 0;
+
+const $ = id => document.getElementById(id);
+
+$("howBtn").addEventListener("click", () => {
+  $("howText").classList.toggle("hidden");
+});
+
+$("startBtn").addEventListener("click", () => {
+  $("intro").classList.add("hidden");
+  $("game").classList.remove("hidden");
+  remaining = 1800;
+  startTimer();
+  renderQuestion();
+});
+
+function startTimer() {
+  clearInterval(timerId);
+  updateTimer();
+
+  timerId = setInterval(() => {
+    remaining = Math.max(0, remaining - 1);
+    updateTimer();
+
+    if (remaining === 0) {
+      clearInterval(timerId);
+      $("timer").textContent = "00:00";
+      $("timer").classList.add("low");
+    }
+  }, 1000);
+}
+
+function updateTimer() {
+  const minutes = String(Math.floor(remaining / 60)).padStart(2, "0");
+  const seconds = String(remaining % 60).padStart(2, "0");
+
+  $("timer").textContent = `${minutes}:${seconds}`;
+  $("timer").classList.toggle("low", remaining <= 300);
+}
+
+function renderQuestion() {
+  const question = questions[index];
+  const phase = phases[question.phase];
+
+  selected = null;
+  answered = false;
+
+  $("phaseLabel").textContent = `FASE ${question.phase + 1} DE 5`;
+  $("stepLabel").textContent = `Etapa ${index + 1} de 25`;
+  $("progressFill").style.width = `${(index / 25) * 100}%`;
+
+  $("phaseIcon").textContent = phase.icon;
+  $("phaseName").textContent = phase.name;
+  $("phaseDesc").textContent = phase.desc;
+
+  $("kindLabel").textContent = question.local === 3
+    ? `ENIGMA ${question.phase + 1}/5`
+    : `DESAFIO ${question.phase * 4 + question.local + 1}/20`;
+
+  $("questionTitle").textContent = question.q;
+  $("questionPrompt").textContent = question.p;
+
+  $("options").innerHTML = "";
+  $("feedback").className = "hidden";
+  $("feedback").textContent = "";
+  $("hintText").textContent = "";
+
+  question.o.forEach((option, optionIndex) => {
+    const button = document.createElement("button");
+    button.className = "option";
+    button.textContent = `${String.fromCharCode(65 + optionIndex)}) ${option}`;
+
+    button.addEventListener("click", () => {
+      if (answered) return;
+
+      selected = optionIndex;
+
+      [...$("options").children].forEach(element => {
+        element.classList.remove("selected");
+      });
+
+      button.classList.add("selected");
+      $("confirmBtn").disabled = false;
+    });
+
+    $("options").appendChild(button);
+  });
+
+  $("confirmBtn").classList.remove("hidden");
+  $("confirmBtn").disabled = true;
+  $("nextBtn").classList.add("hidden");
+  $("hintBtn").disabled = false;
+
+  $("score").textContent = score;
+  $("correctCount").textContent = correct;
+}
+
+$("hintBtn").addEventListener("click", () => {
+  if (answered) return;
+
+  $("hintText").textContent = "💡 Pista: " + questions[index].h;
+  $("hintBtn").disabled = true;
+  hintsUsed++;
+});
+
+$("confirmBtn").addEventListener("click", () => {
+  if (selected === null || answered) return;
+
+  answered = true;
+
+  const question = questions[index];
+  const isCorrect = selected === question.a;
+  const options = [...$("options").children];
+
+  options[question.a].classList.add("correct");
+
+  if (!isCorrect) {
+    options[selected].classList.add("wrong");
+  }
+
+  if (isCorrect) {
+    score += 100;
+    correct++;
+  } else {
+    score += 20;
+  }
+
+  $("feedback").className = "feedback " + (isCorrect ? "good" : "bad");
+
+  $("feedback").textContent =
+    (isCorrect
+      ? "Resposta correta! +100 pontos. "
+      : "Boa tentativa! +20 pontos por participar. ") + question.e;
+
+  $("score").textContent = score;
+  $("correctCount").textContent = correct;
+
+  $("confirmBtn").classList.add("hidden");
+  $("nextBtn").classList.remove("hidden");
+
+  $("nextBtn").textContent = index === 24
+    ? "Montar meu roteiro →"
+    : "Próxima etapa →";
+
+  $("hintBtn").disabled = true;
+  $("progressFill").style.width = `${((index + 1) / 25) * 100}%`;
+});
+
+$("nextBtn").addEventListener("click", () => {
+  if (index < questions.length - 1) {
+    index++;
+    renderQuestion();
+  } else {
+    finishGame();
+  }
+});
+
+function finishGame() {
+  clearInterval(timerId);
+
+  $("game").classList.add("hidden");
+  $("builder").classList.remove("hidden");
+
+  $("resultSummary").textContent =
+    `A equipe concluiu as 25 etapas e marcou ${score} pontos, ` +
+    `com ${correct} respostas corretas. ` +
+    `Pistas utilizadas: ${hintsUsed}. ` +
+    `Agora, revise o roteiro, distribua as falas e faça uma leitura em voz alta antes de gravar.`;
+
+  generateScript();
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+}
+
+function value(id) {
+  return $(id).value.trim();
+}
+
+function generateScript() {
+  const title = value("podTitle") || "Podcast corporativo";
+  const company = value("company") || "Nossa organização";
+  const theme = value("theme");
+  const audience = value("audience") || "colaboradores";
+  const goal = value("goal") || "compartilhar informações úteis";
+  const host = value("host") || "Apresentador(a)";
+  const guest = value("guest") || "Convidado(a)";
+  const action = value("action") || "Procure os canais internos";
+  const duration = value("duration");
+  const extra = value("extra");
+
+  const questionsList = value("questions")
+    .split("\n")
+    .map(item => item.replace(/^\s*\d+\s*[.)-]\s*/, "").trim())
+    .filter(Boolean);
+
+  const question1 = questionsList[0] || "Por que esse tema é importante para nossa equipe?";
+  const question2 = questionsList[1] || "Que atitude prática podemos adotar no dia a dia?";
+  const question3 = questionsList[2] || "Onde buscar apoio ou mais informações?";
+
+  let developmentEnd = "3:40";
+
+  if (duration === "5 a 8 minutos") {
+    developmentEnd = "6:40";
+  } else if (duration === "8 a 12 minutos") {
+    developmentEnd = "10:30";
+  }
+
+  const script = `${title.toUpperCase()} | ROTEIRO DE PODCAST CORPORATIVO
+
+Organização: ${company}
+Tema: ${theme}
+Público-alvo: ${audience}
+Objetivo: ${goal}
+Duração estimada: ${duration}
+
+==================================================
+1. ABERTURA | 0:00–0:30
+==================================================
+
+[VINHETA CURTA]
+
+${host}: Olá! Está começando o ${title}, o podcast da ${company} que aproxima pessoas e ideias. Eu sou ${host} e, neste episódio, vamos conversar sobre ${theme.toLowerCase()}.
+
+A ideia é ${goal.toLowerCase()}. Fique com a gente!
+
+==================================================
+2. APRESENTAÇÃO DO CONVIDADO | 0:30–0:50
+==================================================
+
+${host}: Para essa conversa, recebemos ${guest}. Obrigado(a) por participar! Para começar, conte brevemente como esse tema aparece no dia a dia de trabalho.
+
+${guest}: [Resposta breve de apresentação e contextualização.]
+
+==================================================
+3. CONVERSA PRINCIPAL | 0:50–${developmentEnd}
+==================================================
+
+${host}: Primeira pergunta: ${question1}
+
+${guest}: [Resposta com exemplo concreto, evitando dados não confirmados e informações confidenciais.]
+
+${host}: Segunda pergunta: ${question2}
+
+${guest}: [Sugestão prática e acessível.]
+
+${host}: Terceira pergunta: ${question3}
+
+${guest}: [Indicação de canais, recursos ou próximos passos oficiais.]
+
+[APRESENTADOR(A): FAÇA UMA PERGUNTA DE ACOMPANHAMENTO SE NECESSÁRIO.]
+
+==================================================
+4. SÍNTESE
+==================================================
+
+${host}: Hoje conversamos sobre ${theme.toLowerCase()} e vimos que pequenas atitudes podem fazer diferença.
+
+O principal recado é: [síntese do episódio em uma frase clara e memorável].
+
+==================================================
+5. CHAMADA PARA AÇÃO E ENCERRAMENTO
+==================================================
+
+${host}: Nosso convite é: ${action}
+
+Obrigado(a) por ouvir o ${title}. Esperamos que esta conversa ajude você e sua equipe no dia a dia.
+
+Até o próximo episódio!
+
+[VINHETA DE ENCERRAMENTO]
+
+==================================================
+6. CHECAGEM ANTES DE PUBLICAR
+==================================================
+
+[ ] Confirmar nomes, funções, dados e pronúncias.
+[ ] Obter as autorizações necessárias.
+[ ] Remover dados pessoais e informações confidenciais.
+[ ] Conferir volume, ruídos, duração e clareza das falas.
+[ ] Validar informações e canais citados.
+[ ] Garantir linguagem respeitosa e acessível.
+[ ] Verificar se a chamada para ação está clara.
+
+${extra ? `==================================================\n7. ANOTAÇÕES / CRÉDITOS\n==================================================\n${extra}\n` : ""}
+Produção da equipe de Recursos Humanos.
+Atividade de Comunicação Corporativa.
+
+Professora Bárbara | Comunicação Corporativa
+`;
+
+  $("script").value = script;
+}
+
+$("generateBtn").addEventListener("click", () => {
+  generateScript();
+  $("copyStatus").textContent = "Roteiro atualizado com os dados preenchidos.";
+});
+
+$("copyBtn").addEventListener("click", async () => {
+  const script = $("script");
+
+  try {
+    await navigator.clipboard.writeText(script.value);
+    $("copyStatus").textContent = "Roteiro copiado! Cole no documento da equipe.";
+  } catch (error) {
+    script.focus();
+    script.select();
+
+    const copied = document.execCommand("copy");
+
+    $("copyStatus").textContent = copied
+      ? "Roteiro copiado!"
+      : "Selecione o texto do roteiro e copie manualmente.";
+  }
+});
+
+$("downloadBtn").addEventListener("click", () => {
+  const blob = new Blob(
+    [$("script").value],
+    { type: "text/plain;charset=utf-8" }
+  );
+
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+
+  link.href = url;
+  link.download = "roteiro-podcast-corporativo.txt";
+
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+
+  URL.revokeObjectURL(url);
+
+  $("copyStatus").textContent = "Arquivo de texto baixado.";
+});
+
+$("printBtn").addEventListener("click", () => {
+  window.print();
+});
+
+$("restartBtn").addEventListener("click", () => {
+  index = 0;
+  score = 0;
+  correct = 0;
+  remaining = 1800;
+  hintsUsed = 0;
+
+  clearInterval(timerId);
+
+  $("builder").classList.add("hidden");
+  $("game").classList.add("hidden");
+  $("intro").classList.remove("hidden");
+
+  $("timer").classList.remove("low");
+  $("timer").textContent = "30:00";
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+});
+</script>
+</body>
+</html>
